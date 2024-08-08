@@ -52,7 +52,7 @@
     <p>Job: ${database[userIndex].job}</p>
     <p>Interest: ${database[userIndex].interest}</p>`
 
-    let imgs = database[userIndex].profilePic || []
+    let imgs = database[userIndex].profilePic || ''
     
     function selection(i) {
         let myImag = i.target.files[0]
@@ -64,9 +64,18 @@
 
         reader.addEventListener('load', (i) => {
             let url = i.target.result
-            img.src = url
+            imgs = url
+            database[userIndex].profilePic = imgs
+            localStorage.setItem('jobDataBase' , JSON.stringify(database))
+          displayImage()
+          
         })
     }
+
+    function displayImage(params) {
+        imgs === '' ? img.src = '' :  img.src = imgs
+    }
+  displayImage()
 
    
 </SCript>
